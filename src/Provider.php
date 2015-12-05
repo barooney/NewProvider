@@ -8,6 +8,9 @@ use Laravel\Socialite\Two\User;
 
 class Provider extends AbstractProvider implements ProviderInterface
 {
+
+    protected $scopes = ['basicProfile'];
+
     /**
      * {@inheritdoc}
      */
@@ -46,10 +49,10 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function mapUserToObject(array $user)
     {
-        dd($user);
         return (new User())->setRaw($user)->map([
-            'id' => $user['id'], 'nickname' => null, 'name' => $user['name'],
-            'email' => null, 'avatar' => null,
+            'id' => $user['data']['id'],
+            'name' => $user['data']['name'],
+            
         ]);
     }
 
